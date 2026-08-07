@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PoAIm — tiny poems for every feeling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6efe1;
+    --card:#fbf5e8;
+    --ink:#2b2523;
+    --muted:#8a7f6f;
+    --accent:#b5794a;
+    --border:#e6dcc6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:40px 16px 80px;
+  }
+  .app{width:100%;max-width:520px;}
+  header{text-align:center;margin-bottom:28px;}
+  header h1{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    letter-spacing:1px;
+    margin:0 0 6px;
+  }
+  header .tagline{color:var(--muted);font-size:0.9rem;margin:0;}
+
+  .form-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:28px;
+  }
+  label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    margin:16px 0 6px;
+  }
+  label:first-of-type{margin-top:0;}
+  .req{color:var(--accent);}
+  .opt{color:var(--muted);font-weight:400;}
+
+  .input-row{display:flex;gap:8px;}
+  input[type="text"], select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    color:var(--ink);
+  }
+  input[type="text"]:focus, select:focus{outline:2px solid var(--accent);}
+
+  .chip-btn{
+    flex-shrink:0;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:10px;
+    padding:0 14px;
+    font-size:0.85rem;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .chip-btn.active{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+
+  .error-msg{
+    color:#a63c3c;
+    font-size:0.82rem;
+    margin:10px 0 0;
+  }
+
+  .primary-btn{
+    width:100%;
+    margin-top:22px;
+    padding:13px;
+    border:none;
+    border-radius:12px;
+    background:var(--ink);
+    color:#fdf9ee;
+    font-size:0.95rem;
+    font-weight:600;
+    cursor:pointer;
+    letter-spacing:0.3px;
+  }
+  .primary-btn:hover{background:#000;}
+
+  .poem-card-wrap{display:flex;justify-content:center;}
+  .poem-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:40px 32px 28px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 6px 24px rgba(0,0,0,0.05);
+  }
+  .poem-icon{
+    width:64px;height:64px;
+    margin:0 auto 18px;
+  }
+  .poem-icon svg{width:100%;height:100%;}
+
+  .poem-title{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:1.15rem;
+    font-weight:400;
+    letter-spacing:0.5px;
+    margin:0 0 20px;
+    color:var(--ink);
+  }
+  .poem-body{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    line-height:2.1;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .poem-body .line{margin:0;}
+
+  .poem-dedication{
+    font-family:'Inter',sans-serif;
+    font-size:0.8rem;
+    font-style:italic;
+    color:var(--muted);
+    margin:20px 0 0;
+  }
+
+  .poem-actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+  .poem-actions button{
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:10px;
+    padding:8px 16px;
+    font-size:0.85rem;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .poem-actions button:hover{border-color:var(--accent);color:var(--accent);}
+
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <h1>PoAIm</h1>
+    <p class="tagline">AI-generated tiny poems for every feeling and moment.</p>
+  </header>
+
+  <section class="form-card">
+    <label>What is on your mind? <span class="req">*</span></label>
+    <div class="input-row">
+      <input type="text" id="themeInput" placeholder="e.g. changing careers, missing my grandmother..." />
+      <button type="button" id="themeChooseBtn" class="chip-btn">✨ You choose</button>
+    </div>
+
+    <label>How should it feel? <span class="opt">(optional)</span></label>
+    <select id="feelingSelect">
+      <option value="">— optional —</option>
+      <option value="tender">Tender</option>
+      <option value="hopeful">Hopeful</option>
+      <option value="wistful">Wistful</option>
+      <option value="joyful">Joyful</option>
+      <option value="fierce">Fierce</option>
+      <option value="quiet">Quiet</option>
+      <option value="mysterious">Mysterious</option>
+      <option value="you-choose">You choose</option>
+    </select>
+
+    <label>Who is it for? <span class="opt">(optional)</span></label>
+    <select id="recipientSelect">
+      <option value="">— optional —</option>
+      <option value="me">Me</option>
+      <option value="loved">Someone I love</option>
+      <option value="missed">Someone I miss</option>
+      <option value="friend">A friend</option>
+      <option value="anyone">Anyone</option>
+      <option value="you-choose">You choose</option>
+    </select>
+
+    <p id="errorMsg" class="error-msg" hidden></p>
+    <button id="generateBtn" class="primary-btn">Create my PoAIm ✦</button>
+  </section>
+
+  <section id="poemCardWrap" class="poem-card-wrap" hidden>
+    <div class="poem-card">
+      <div class="poem-icon" id="poemIcon"></div>
+      <h2 class="poem-title" id="poemTitle" hidden></h2>
+      <div class="poem-body" id="poemBody"></div>
+      <p class="poem-dedication" id="poemDedication" hidden></p>
+      <div class="poem-actions">
+        <button id="regenBtn">↻ Regenerate</button>
+        <button id="copyBtn">⧉ Copy poem</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------- utils ---------- */
+const randomFrom = arr => arr[Math.floor(Math.random()*arr.length)];
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+/* ---------- feeling adjective pools ---------- */
+const feelingAdjectives = {
+  tender: ['soft','gentle','hushed','tender','quiet'],
+  hopeful: ['bright','rising','open','hopeful','unfolding'],
+  wistful: ['faded','quiet','distant','wistful','fading'],
+  joyful: ['bright','dancing','warm','golden','joyful'],
+  fierce: ['sharp','burning','unbending','fierce','wild'],
+  quiet: ['still','hushed','low','silent','quiet'],
+  mysterious: ['veiled','unknown','dim','hidden','mysterious']
+};
+
+/* ---------- recipient dedication phrases ---------- */
+const recipientPhrases = {
+  me: ["for me, and only me","for the one still becoming","for myself, quietly held"],
+  loved: ["for you, always","for the one I love","for your steady hands"],
+  missed: ["for the one I miss","for you, wherever you are now","for the space you left behind"],
+  friend: ["for a friend, old and true","for you, my friend","for the ones who stay"],
+  anyone: ["for anyone who needs it today","for whoever finds this","for you, whoever you are"]
+};
+
+/* ---------- category content ---------- */
+const categories = {
+  career_change: {
+    icon:'door',
+    defaultFeeling:'hopeful',
+    titles:["Threshold","The Open Door","Morning Light","A Door Ajar","The Long Hallway"],
+    opening:[
+  adj => "The old room grows " + adj + " and small,",
+  adj => "There is a door left " + adj + " open,",
+  adj => "Morning leans, " + adj + ", against the frame,"
+],
+    middle:[
+      ()=>`and the hallway hums with maybe.`,
+      ()=>`My hand forgets the shape of the old key.`,
+      ()=>`Somewhere a path unlearns its dust.`,
+      ()=>`The horizon tilts one shade brighter.`,
+      ()=>`Light pools where the hinge used to creak.`,
+      ()=>`The map redraws itself while I sleep.`
+    ],
+    closing:[
+      ()=>`and I step through, unafraid.`,
+      ()=>`and the door does not close behind me.`,
+      ()=>`and a new floor learns my footsteps.`
+    ]
+  },
+  grief_missing: {
+    icon:'chair',
+    defaultFeeling:'wistful',
+    titles:["The Empty Chair","What Remains","Still Here","A Quiet Room","The Space You Left"],
+    opening:[
+      adj=>`The kitchen keeps a &#36;{adj} chair,`,
+      adj=>`Your name sits &#36;{adj} on my tongue,`,
+      adj=>`The house remembers you, &#36;{adj},`
+    ],
+    middle:[
+      ()=>`in the smell of bread and cardamom.`,
+      ()=>`Dust settles where your hands once were.`,
+      ()=>`I set two cups down out of habit.`,
+      ()=>`The garden still grows the flowers you chose.`,
+      ()=>`Your voice hides in the hush after supper.`,
+      ()=>`Photographs learn to breathe on their own.`
+    ],
+    closing:[
+      ()=>`and grief, it turns out, is love with nowhere to go.`,
+      ()=>`and I keep loving you in the present tense.`,
+      ()=>`and the light still finds your favorite chair.`
+    ]
+  },
+  love_falling: {
+    icon:'hands',
+    defaultFeeling:'tender',
+    titles:["Slow Light","Learning You","The Quiet Arrival","Tide","Falling, Slowly"],
+    opening:[
+      adj=>`Love arrives &#36;{adj}, like tide,`,
+      adj=>`Your name settles &#36;{adj} in my chest,`,
+      adj=>`Something &#36;{adj} is learning my hands,`
+    ],
+    middle:[
+      ()=>`not a wave but a slow warming shore.`,
+      ()=>`I keep finding new rooms in your laugh.`,
+      ()=>`We are learning each other's weather.`,
+      ()=>`Even silence sounds different with you in it.`,
+      ()=>`Your name becomes a small, steady lamp.`,
+      ()=>`Morning keeps arriving early, on purpose.`
+    ],
+    closing:[
+      ()=>`and I am in no hurry to reach the shore.`,
+      ()=>`and I let it, slowly, become everything.`,
+      ()=>`and this, quietly, is how it begins.`
+    ]
+  },
+  friendship_change: {
+    icon:'letter',
+    defaultFeeling:'wistful',
+    titles:["Between Us","Distance, Kept Warm","Two Porch Lights","The Letters We Don't Send","Still Ours"],
+    opening:[
+      adj=>`The years grow &#36;{adj} between us,`,
+      adj=>`Our friendship learns a &#36;{adj} shape,`,
+      adj=>`Something &#36;{adj} shifts, but stays,`
+    ],
+    middle:[
+      ()=>`like a bridge that no longer needs crossing daily.`,
+      ()=>`We text in fragments now, not letters.`,
+      ()=>`The porch light still means the same thing.`,
+      ()=>`Distance doesn't undo what we built.`,
+      ()=>`We are two rivers that still remember one source.`,
+      ()=>`New people fill the seats beside us.`
+    ],
+    closing:[
+      ()=>`and some things don't need daily proof to be true.`,
+      ()=>`and I still leave a light on for you.`,
+      ()=>`and this, too, is a kind of staying.`
+    ]
+  },
+  fear_anxiety: {
+    icon:'window',
+    defaultFeeling:'quiet',
+    titles:["The Closed Window","What the Storm Knows","Held Breath","Small Weather","Before the Calm"],
+    opening:[
+      adj=>`The window stays &#36;{adj} shut,`,
+      adj=>`My chest holds a &#36;{adj} storm,`,
+      adj=>`Something &#36;{adj} gathers at the edges,`
+    ],
+    middle:[
+      ()=>`and still the light finds a way in.`,
+      ()=>`I count my breath like small stones.`,
+      ()=>`The thunder is only weather, passing.`,
+      ()=>`My hands learn to hold their own shaking.`,
+      ()=>`Even the dark has a shape I can name.`,
+      ()=>`Fear, too, eventually runs out of rain.`
+    ],
+    closing:[
+      ()=>`and I open the window anyway.`,
+      ()=>`and I breathe until the room believes me.`,
+      ()=>`and the storm, quietly, moves on.`
+    ]
+  },
+  hope_newbeginning: {
+    icon:'seed',
+    defaultFeeling:'hopeful',
+    titles:["The First Green","A Fresh Start","Seedlight","What Grows Next","Beginning, Again"],
+    opening:[
+      adj=>`Something &#36;{adj} is starting again,`,
+      adj=>`A seed keeps a &#36;{adj} promise,`,
+      adj=>`The morning arrives &#36;{adj} and new,`
+    ],
+    middle:[
+      ()=>`small, and unsure, and green anyway.`,
+      ()=>`Hope doesn't need proof, just soil.`,
+      ()=>`I water what I cannot yet see.`,
+      ()=>`The old ground remembers how to begin.`,
+      ()=>`Even doubt gets a little sun today.`,
+      ()=>`Nothing blooms on schedule, and that's alright.`
+    ],
+    closing:[
+      ()=>`and I plant this, trusting the light.`,
+      ()=>`and something in me starts again, quietly.`,
+      ()=>`and I let it grow at its own pace.`
+    ]
+  },
+  joy_celebration: {
+    icon:'bird',
+    defaultFeeling:'joyful',
+    titles:["Wingspan","A Bright Noise","Small Celebrations","Lift","The Good Kind of Loud"],
+    opening:[
+      adj=>`Joy arrives &#36;{adj} and sudden,`,
+      adj=>`Something &#36;{adj} takes flight in my chest,`,
+      adj=>`The day breaks open, &#36;{adj},`
+    ],
+    middle:[
+      ()=>`like a bird that forgot it could sing.`,
+      ()=>`We laugh until the kitchen glows.`,
+      ()=>`Light spills easy over everything.`,
+      ()=>`Even the ordinary hums today.`,
+      ()=>`I keep catching myself smiling for no reason.`,
+      ()=>`The whole sky seems to be clapping.`
+    ],
+    closing:[
+      ()=>`and I let the good noise stay.`,
+      ()=>`and this, simply, is enough.`,
+      ()=>`and I let myself have this.`
+    ]
+  },
+  mystery_unknown: {
+    icon:'moon',
+    defaultFeeling:'mysterious',
+    titles:["What the Fog Knows","The Unnamed Hour","Half-Light","Somewhere, Unwritten","The Question Room"],
+    opening:[
+      adj=>`The future stays &#36;{adj} and unnamed,`,
+      adj=>`Something &#36;{adj} waits behind the fog,`,
+      adj=>`The moon keeps its &#36;{adj} secrets,`
+    ],
+    middle:[
+      ()=>`and I walk toward it anyway.`,
+      ()=>`Not knowing has its own kind of quiet.`,
+      ()=>`The dark isn't empty, just unfinished.`,
+      ()=>`I keep my questions folded, close.`,
+      ()=>`Some doors open only after you knock.`,
+      ()=>`Uncertainty, too, is a kind of beginning.`
+    ],
+    closing:[
+      ()=>`and I let the not-knowing be enough for now.`,
+      ()=>`and I walk anyway, half-lit, willing.`,
+      ()=>`and the fog, eventually, learns my name.`
+    ]
+  },
+  reflection: {
+    icon:'moon',
+    defaultFeeling:'quiet',
+    titles:["Small Weather","A Quiet Hour","What Stays","Still, Here","The In-Between"],
+    opening:[
+      adj=>`Something &#36;{adj} moves through me,`,
+      adj=>`The hour turns &#36;{adj} and slow,`,
+      adj=>`A quiet, &#36;{adj}, settles in,`
+    ],
+    middle:[
+      ()=>`unnamed, but not unwelcome.`,
+      ()=>`I sit with it like an old friend.`,
+      ()=>`The room holds its breath with me.`,
+      ()=>`Even this feeling deserves a little light.`,
+      ()=>`Some days ask nothing but to be felt.`,
+      ()=>`I let it move through, unhurried.`
+    ],
+    closing:[
+      ()=>`and I let it be exactly what it is.`,
+      ()=>`and that, for now, is enough.`,
+      ()=>`and I stay a little longer, still.`
+    ]
+  }
+};
+
+/* ---------- theme keyword detection ---------- */
+const keywordMap = {
+  career_change: ['career','job','profession','work','quit','resign','promotion'],
+  grief_missing: ['grandmother','grandfather','mother','father','miss','missing','loss','lost','death','died','passed away','grief','grieving'],
+  love_falling: ['love','falling in love','crush','romance','partner','boyfriend','girlfriend','dating','falling for'],
+  friendship_change: ['friend','friendship'],
+  fear_anxiety: ['afraid','fear','anxious','anxiety','scared','worry','worried','nervous'],
+  hope_newbeginning: ['new beginning','starting over','fresh start','new chapter','moving on','hope'],
+  joy_celebration: ['joy','happy','celebrat','excited','wedding','birth','baby','graduat'],
+  mystery_unknown: ['unknown','mystery','uncertain','future','not sure','unsure']
+};
+
+function detectCategory(text){
+  const t = text.toLowerCase();
+  for(const key in keywordMap){
+    if(keywordMap[key].some(k=>t.includes(k))) return key;
+  }
+  return 'reflection';
+}
+
+/* ---------- "You choose" theme bank ---------- */
+const youChooseThemes = [
+  {cat:'career_change'},{cat:'grief_missing'},{cat:'love_falling'},
+  {cat:'friendship_change'},{cat:'fear_anxiety'},{cat:'hope_newbeginning'},
+  {cat:'joy_celebration'},{cat:'mystery_unknown'},{cat:'reflection'}
+];
+
+/* ---------- icon SVGs ---------- */
+const CREAM = '#fbf5e8';
+const INK = '#2b2523';
+const icons = {
+  door:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="14" width="52" height="96"/>
+    <g transform="rotate(-18 18 14)"><rect x="18" y="14" width="52" height="96"/><circle cx="58" cy="64" r="3" fill="${INK}"/></g>
+  </svg>`,
+  chair:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="38" y1="55" x2="82" y2="55"/>
+    <line x1="38" y1="55" x2="38" y2="24"/>
+    <line x1="38" y1="24" x2="70" y2="24"/>
+    <line x1="38" y1="55" x2="33" y2="98"/>
+    <line x1="82" y1="55" x2="87" y2="98"/>
+  </svg>`,
+  hands:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 68 Q60 100 102 68"/>
+    <path d="M28 68 Q60 52 92 68"/>
+    <circle cx="60" cy="42" r="4" fill="${INK}" stroke="none"/>
+  </svg>`,
+  letter:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="16" y="34" width="88" height="58"/>
+    <path d="M16 34 L60 72 L104 34"/>
+  </svg>`,
+  window:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="22" y="18" width="76" height="84"/>
+    <line x1="60" y1="18" x2="60" y2="102"/>
+    <line x1="22" y1="60" x2="98" y2="60"/>
+  </svg>`,
+  seed:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="60" cy="82" rx="10" ry="16" transform="rotate(20 60 82)"/>
+    <path d="M60 66 Q54 42 66 26"/>
+    <path d="M66 26 Q78 20 84 32"/>
+  </svg>`,
+  bird:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 66 Q40 34 60 58 Q80 34 106 66"/>
+  </svg>`,
+  moon:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3">
+    <circle cx="60" cy="60" r="34"/>
+    <circle cx="76" cy="48" r="30" fill="${CREAM}" stroke="none"/>
+  </svg>`
+};
+
+/* ---------- poem generation ---------- */
+function generatePoem(themeInput, feelingInput, recipientInput){
+  let category;
+  if(themeInput.toLowerCase() === 'you choose'){
+    category = randomFrom(youChooseThemes).cat;
+  } else {
+    category = detectCategory(themeInput);
+  }
+  const cat = categories[category];
+
+  let feelingKey = feelingInput;
+  if(!feelingKey) feelingKey = cat.defaultFeeling;
+  if(feelingKey === 'you-choose') feelingKey = randomFrom(Object.keys(feelingAdjectives));
+  const adjPool = feelingAdjectives[feelingKey] || feelingAdjectives.quiet;
+
+  let recipientKey = null;
+  if(recipientInput){
+    recipientKey = recipientInput === 'you-choose'
+      ? randomFrom(Object.keys(recipientPhrases))
+      : recipientInput;
+  }
+
+  let middleCount = 2 + Math.floor(Math.random()*3);
+  if(themeInput.length > 40) middleCount++;
+  if(themeInput.length > 90) middleCount++;
+  middleCount = Math.min(middleCount, 6);
+
+  const opening = randomFrom(cat.opening)(randomFrom(adjPool));
+  const middles = shuffle(cat.middle).slice(0, middleCount).map(fn=>fn());
+  const closingLine = randomFrom(cat.closing)();
+  const lines = [opening, ...middles, closingLine];
+
+  const title = Math.random() < 0.7 ? randomFrom(cat.titles) : null;
+  const dedication = recipientKey ? '— ' + randomFrom(recipientPhrases[recipientKey]) : null;
+
+  return { title, lines, dedication, icon: cat.icon };
+}
+
+/* ---------- UI wiring ---------- */
+const themeInput = document.getElementById('themeInput');
+const themeChooseBtn = document.getElementById('themeChooseBtn');
+const feelingSelect = document.getElementById('feelingSelect');
+const recipientSelect = document.getElementById('recipientSelect');
+const errorMsg = document.getElementById('errorMsg');
+const generateBtn = document.getElementById('generateBtn');
+const poemCardWrap = document.getElementById('poemCardWrap');
+const poemIcon = document.getElementById('poemIcon');
+const poemTitle = document.getElementById('poemTitle');
+const poemBody = document.getElementById('poemBody');
+const poemDedication = document.getElementById('poemDedication');
+const regenBtn = document.getElementById('regenBtn');
+const copyBtn = document.getElementById('copyBtn');
+
+let themeChooseActive = false;
+themeChooseBtn.addEventListener('click', ()=>{
+  themeChooseActive = !themeChooseActive;
+  themeChooseBtn.classList.toggle('active', themeChooseActive);
+  if(themeChooseActive) themeInput.value = '';
+});
+themeInput.addEventListener('input', ()=>{
+  if(themeInput.value.trim() !== ''){
+    themeChooseActive = false;
+    themeChooseBtn.classList.remove('active');
+  }
+});
+
+let lastInputs = null;
+
+function renderPoem(themeVal, feelingVal, recipientVal){
+  const result = generatePoem(themeVal, feelingVal, recipientVal);
+
+  poemIcon.innerHTML = icons[result.icon];
+
+  if(result.title){
+    poemTitle.textContent = result.title;
+    poemTitle.hidden = false;
+  } else {
+    poemTitle.hidden = true;
+  }
+
+  poemBody.innerHTML = result.lines.map(l=>`<p class="line">${l}</p>`).join('');
+
+  if(result.dedication){
+    poemDedication.textContent = result.dedication;
+    poemDedication.hidden = false;
+  } else {
+    poemDedication.hidden = true;
+  }
+
+  poemCardWrap.hidden = false;
+  poemCardWrap.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+generateBtn.addEventListener('click', ()=>{
+  const themeVal = themeChooseActive ? 'you choose' : themeInput.value.trim();
+  if(!themeVal){
+    errorMsg.textContent = 'Please tell us what\'s on your mind, or tap "You choose."';
+    errorMsg.hidden = false;
+    return;
+  }
+  errorMsg.hidden = true;
+  lastInputs = { themeVal, feelingVal: feelingSelect.value, recipientVal: recipientSelect.value };
+  renderPoem(themeVal, feelingSelect.value, recipientSelect.value);
+});
+
+regenBtn.addEventListener('click', ()=>{
+  if(!lastInputs) return;
+  renderPoem(lastInputs.themeVal, lastInputs.feelingVal, lastInputs.recipientVal);
+});
+
+copyBtn.addEventListener('click', ()=>{
+  const titleText = !poemTitle.hidden ? poemTitle.textContent.toUpperCase() + '\n\n' : '';
+  const bodyText = Array.from(poemBody.querySelectorAll('.line')).map(p=>p.textContent).join('\n');
+  const dedText = !poemDedication.hidden ? '\n\n' + poemDedication.textContent : '';
+  const full = titleText + bodyText + dedText;
+  navigator.clipboard.writeText(full).then(()=>{
+    const original = copyBtn.textContent;
+    copyBtn.textContent = 'Copied!';
+    setTimeout(()=>{ copyBtn.textContent = original; }, 1500);
+  });
+});
+</script>
+</body>
+</html>
