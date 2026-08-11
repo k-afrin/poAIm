@@ -82,8 +82,8 @@
     <p class="hint">
       Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>
       (no credit card required). This app uses the free <code>openai/gpt-oss-120b:free</code> model —
-      &#36;0 per call, but limited to roughly 20 requests/min and 50/day (1,000/day if you ever add
-      &#36;10 credit to your account). Free endpoints can occasionally be unavailable or rate-limited
+      $0 per call, but limited to roughly 20 requests/min and 50/day (1,000/day if you ever add
+      $10 credit to your account). Free endpoints can occasionally be unavailable or rate-limited
       by the underlying provider — if you see a "No endpoints found" or 429 error, check
       <a href="https://openrouter.ai/models?max_price=0" target="_blank">openrouter.ai/models</a>
       for a currently active free model and swap the MODEL constant in the code.
@@ -164,15 +164,15 @@ const randomFrom = arr => arr[Math.floor(Math.random()*arr.length)];
 const CREAM = '#fbf5e8', INK = '#2b2523';
 const icons = {
   door:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="14" width="52" height="96"/><g transform="rotate(-18 18 14)"><rect x="18" y="14" width="52" height="96"/><circle cx="58" cy="64" r="3" fill="${INK}"/></g></svg>`,
-  chair:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="38" y1="55" x2="82" y2="55"/><line x1="38" y1="55" x2="38" y2="24"/><line x1="38" y1="24" x2="70" y2="24"/><line x1="38" y1="55" x2="33" y2="98"/><line x1="82" y1="55" x2="87" y2="98"/></svg>`,
+  chair:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="38" y1="55" x2="82" y2="55"/><line x1="38" y1="55" x2="38" y2="24"/><line x1="38" y1="24" x2="70" y2="24"/><line x1="38" y1="55" x2="33" y2="98"/><line x1="82" y1="55" x2="87" y2="98"/></svg>`,
   hands:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 68 Q60 100 102 68"/><path d="M28 68 Q60 52 92 68"/><circle cx="60" cy="42" r="4" fill="${INK}" stroke="none"/></svg>`,
-  letter:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="34" width="88" height="58"/><path d="M16 34 L60 72 L104 34"/></svg>`,
-  window:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="76" height="84"/><line x1="60" y1="18" x2="60" y2="102"/><line x1="22" y1="60" x2="98" y2="60"/></svg>`,
-  seed:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="60" cy="82" rx="10" ry="16" transform="rotate(20 60 82)"/><path d="M60 66 Q54 42 66 26"/><path d="M66 26 Q78 20 84 32"/></svg>`,
-  bird:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 66 Q40 34 60 58 Q80 34 106 66"/></svg>`,
+  letter:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="34" width="88" height="58"/><path d="M16 34 L60 72 L104 34"/></svg>`,
+  window:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="76" height="84"/><line x1="60" y1="18" x2="60" y2="102"/><line x1="22" y1="60" x2="98" y2="60"/></svg>`,
+  seed:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="60" cy="82" rx="10" ry="16" transform="rotate(20 60 82)"/><path d="M60 66 Q54 42 66 26"/><path d="M66 26 Q78 20 84 32"/></svg>`,
+  bird:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 66 Q40 34 60 58 Q80 34 106 66"/></svg>`,
   moon:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3"><circle cx="60" cy="60" r="34"/><circle cx="76" cy="48" r="30" fill="${CREAM}" stroke="none"/></svg>`,
-  flower:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="8"/><circle cx="44" cy="38" r="10"/><circle cx="76" cy="38" r="10"/><circle cx="44" cy="62" r="10"/><circle cx="76" cy="62" r="10"/><line x1="60" y1="58" x2="60" y2="100"/></svg>`,
-  wave:`<svg viewBox="0 0 120 120" fill="none" stroke="&#36;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 50 Q30 30 50 50 T90 50 T110 50"/><path d="M10 70 Q30 50 50 70 T90 70 T110 70"/></svg>`,
+  flower:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="8"/><circle cx="44" cy="38" r="10"/><circle cx="76" cy="38" r="10"/><circle cx="44" cy="62" r="10"/><circle cx="76" cy="62" r="10"/><line x1="60" y1="58" x2="60" y2="100"/></svg>`,
+  wave:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 50 Q30 30 50 50 T90 50 T110 50"/><path d="M10 70 Q30 50 50 70 T90 70 T110 70"/></svg>`,
   matchstick:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="60" y1="30" x2="60" y2="100"/><path d="M50 30 Q60 10 70 30 Q65 22 60 30 Q55 22 50 30 Z" fill="${INK}"/></svg>`
 };
 
@@ -187,13 +187,13 @@ apiKeyInput.addEventListener('input', ()=>{
 function buildMessages(theme, feeling, recipient){
   const themeLine = theme.toLowerCase() === 'you choose'
     ? "The user has no specific theme in mind — invent an original, emotionally resonant theme yourself."
-    : `Theme (emotional context, NOT literal words to use): "&#36;{theme}"`;
+    : `Theme (emotional context, NOT literal words to use): "${theme}"`;
 
   const feelingLine = !feeling
     ? "No specific feeling was requested — choose a tone that best fits the theme."
     : feeling === 'you-choose'
       ? "The user wants you to choose the emotional tone yourself."
-      : `Desired feeling/tone: &#36;{feeling}`;
+      : `Desired feeling/tone: ${feeling}`;
 
   const system = `You are the poem-generation engine for PoAIm, an app that creates tiny original poems.
 
@@ -205,7 +205,7 @@ STRICT RULES:
 - Choose ONE small central image (e.g. a door, window, bird, wave, flower, moon, matchstick, hands, chair, letter, seed) that the poem revolves around.
 - Provide an optional evocative title (or null if the poem is better untitled).
 - Output ONLY valid JSON, no markdown fences, no commentary, in this exact shape:
-{"title": "string or null", "lines": ["line1","line2", "..."], "icon": "one of: &#36;{VALID_ICONS.join(', ')}"}`;
+{"title": "string or null", "lines": ["line1","line2", "..."], "icon": "one of: ${VALID_ICONS.join(', ')}"}`;
 
   const user = `${themeLine}\n${feelingLine}\n\nGenerate one original PoAIm now.`;
 
@@ -234,7 +234,7 @@ async function generatePoemAI(theme, feeling, recipient){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer &#36;{apiKey}`
+      'Authorization': `Bearer ${apiKey}`
     },
     body: JSON.stringify({
       model: MODEL,
@@ -322,7 +322,7 @@ function renderPoem(result, recipientKey, sourceLabel){
     poemTitle.hidden = true;
   }
 
-  poemBody.innerHTML = result.lines.map(l=>`<p class="line">&#36;{l}</p>`).join('');
+  poemBody.innerHTML = result.lines.map(l=>`<p class="line">${l}</p>`).join('');
 
   if(recipientKey){
     poemDedication.textContent = '— ' + randomFrom(recipientPhrases[recipientKey]);
