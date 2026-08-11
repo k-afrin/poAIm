@@ -226,44 +226,71 @@ function extractJSON(text){
 }
 
 /* ================= API call ================= */
-async function generatePoemAI(theme, feeling, recipient){
-  const apiKey = localStorage.getItem('poaim_api_key');
-  if(!apiKey) throw new Error("MISSING_KEY");
+async function generatePoemAI(theme, feeling, recipient) {
+  // Read directly from the visible field
+  const apiKey = apiKeyInput.value.trim();
 
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: buildMessages(theme, feeling, recipient),
-      temperature: 0.95,
-      max_tokens: 350
-    })
-  });
-
-  if(!response.ok){
-    const errBody = await response.text();
-    throw new Error(`API_ERROR: ${response.status} ${errBody}`);
+  if (!apiKey) {
+    throw new Error("MISSING_KEY");
   }
 
-  const data = await response.json();
+  if (!apiKey.startsWith("sk-or-")) {
+    throw new Error("INVALID_KEY_FORMAT");
+  }
+
+  // Keep localStorage synchronized
+  localStorage.setItem("poaim_api_key", apiKey);
+
+  const response = await fetch(
+    "https://openrouter.ai/api/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Concatenation avoids the earlier ${...} escaping problem
+        "Authorization": "Bearer " + apiKey
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: buildMessages(theme, feeling, recipient),
+        temperature: 0.95,
+        max_tokens: 350
+      })
+    }
+  );
+
+  const responseText = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      "API_ERROR: " + response.status + " " + responseText
+    );
+  }
+
+  const data = JSON.parse(responseText);
   const content = data.choices?.[0]?.message?.content;
-  if(!content) throw new Error("EMPTY_RESPONSE");
+
+  if (!content) {
+    throw new Error("EMPTY_RESPONSE");
+  }
 
   const parsed = extractJSON(content);
 
-  if(!Array.isArray(parsed.lines) || parsed.lines.length < 4 || parsed.lines.length > 10){
+  if (
+    !Array.isArray(parsed.lines) ||
+    parsed.lines.length < 4 ||
+    parsed.lines.length > 10
+  ) {
     throw new Error("INVALID_SHAPE");
   }
-  if(!VALID_ICONS.includes(parsed.icon)){
+
+  if (!VALID_ICONS.includes(parsed.icon)) {
     parsed.icon = randomFrom(VALID_ICONS);
   }
 
   return parsed;
 }
+
 
 /* ================= UI wiring ================= */
 const themeInput = document.getElementById('themeInput');
