@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,62 +9,161 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6efe1; --card:#fbf5e8; --ink:#2b2523;
-    --muted:#8a7f6f; --accent:#b5794a; --border:#e6dcc6;
+    --bg:#f6efe1;
+    --card:#fbf5e8;
+    --ink:#2b2523;
+    --muted:#8a7f6f;
+    --accent:#b5794a;
+    --border:#e6dcc6;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;
-    display:flex;justify-content:center;padding:40px 16px 80px;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:40px 16px 80px;
+  }
   .app{width:100%;max-width:520px;}
   header{text-align:center;margin-bottom:28px;}
-  header h1{font-family:'Playfair Display',serif;font-size:2.2rem;letter-spacing:1px;margin:0 0 6px;}
+  header h1{
+    font-family:'Playfair Display',serif;
+    font-size:2.2rem;
+    letter-spacing:1px;
+    margin:0 0 6px;
+  }
   header .tagline{color:var(--muted);font-size:0.9rem;margin:0;}
 
-  .form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px;}
-  label{display:block;font-size:0.85rem;font-weight:600;margin:16px 0 6px;}
+  .form-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:28px;
+  }
+  label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    margin:16px 0 6px;
+  }
   label:first-of-type{margin-top:0;}
   .req{color:var(--accent);}
   .opt{color:var(--muted);font-weight:400;}
-  .input-row{display:flex;gap:8px;}
-  input[type="text"], input[type="password"], select{
-    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
-    background:#fff;font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);
-  }
-  input:focus, select:focus{outline:2px solid var(--accent);}
-  .chip-btn{flex-shrink:0;border:1px solid var(--border);background:#fff;border-radius:10px;
-    padding:0 14px;font-size:0.85rem;cursor:pointer;white-space:nowrap;}
-  .chip-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-  .error-msg{color:#a63c3c;font-size:0.82rem;margin:10px 0 0;}
-  .status-msg{color:var(--muted);font-size:0.8rem;margin:10px 0 0;font-style:italic;}
-  .primary-btn{width:100%;margin-top:22px;padding:13px;border:none;border-radius:12px;
-    background:var(--ink);color:#fdf9ee;font-size:0.95rem;font-weight:600;cursor:pointer;letter-spacing:0.3px;}
-  .primary-btn:hover{background:#000;}
-  .primary-btn:disabled{opacity:0.5;cursor:not-allowed;}
 
-  .settings-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-    padding:18px 24px;margin-bottom:28px;font-size:0.82rem;}
-  .settings-card summary{cursor:pointer;font-weight:600;color:var(--muted);}
-  .settings-card .hint{color:var(--muted);font-size:0.75rem;margin-top:6px;}
-  .settings-card a{color:var(--accent);}
+  .input-row{display:flex;gap:8px;}
+  input[type="text"], select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    color:var(--ink);
+  }
+  input[type="text"]:focus, select:focus{outline:2px solid var(--accent);}
+
+  .chip-btn{
+    flex-shrink:0;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:10px;
+    padding:0 14px;
+    font-size:0.85rem;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .chip-btn.active{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+
+  .error-msg{
+    color:#a63c3c;
+    font-size:0.82rem;
+    margin:10px 0 0;
+  }
+
+  .primary-btn{
+    width:100%;
+    margin-top:22px;
+    padding:13px;
+    border:none;
+    border-radius:12px;
+    background:var(--ink);
+    color:#fdf9ee;
+    font-size:0.95rem;
+    font-weight:600;
+    cursor:pointer;
+    letter-spacing:0.3px;
+  }
+  .primary-btn:hover{background:#000;}
 
   .poem-card-wrap{display:flex;justify-content:center;}
-  .poem-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-    padding:40px 32px 28px;width:100%;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,0.05);}
-  .poem-icon{width:64px;height:64px;margin:0 auto 18px;}
+  .poem-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:40px 32px 28px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 6px 24px rgba(0,0,0,0.05);
+  }
+  .poem-icon{
+    width:64px;height:64px;
+    margin:0 auto 18px;
+  }
   .poem-icon svg{width:100%;height:100%;}
-  .poem-title{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;
-    font-weight:400;letter-spacing:0.5px;margin:0 0 20px;color:var(--ink);}
-  .poem-body{font-family:'Playfair Display',serif;font-size:1.15rem;line-height:2.1;
-    color:var(--ink);margin-bottom:6px;}
+
+  .poem-title{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:1.15rem;
+    font-weight:400;
+    letter-spacing:0.5px;
+    margin:0 0 20px;
+    color:var(--ink);
+  }
+  .poem-body{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    line-height:2.1;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
   .poem-body .line{margin:0;}
-  .poem-dedication{font-family:'Inter',sans-serif;font-size:0.8rem;font-style:italic;
-    color:var(--muted);margin:20px 0 0;}
-  .poem-source{font-size:0.7rem;color:var(--muted);margin-top:14px;}
-  .poem-actions{display:flex;justify-content:center;gap:12px;margin-top:28px;
-    padding-top:20px;border-top:1px solid var(--border);}
-  .poem-actions button{border:1px solid var(--border);background:#fff;border-radius:10px;
-    padding:8px 16px;font-size:0.85rem;cursor:pointer;color:var(--ink);}
+
+  .poem-dedication{
+    font-family:'Inter',sans-serif;
+    font-size:0.8rem;
+    font-style:italic;
+    color:var(--muted);
+    margin:20px 0 0;
+  }
+
+  .poem-actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+  }
+  .poem-actions button{
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:10px;
+    padding:8px 16px;
+    font-size:0.85rem;
+    cursor:pointer;
+    color:var(--ink);
+  }
   .poem-actions button:hover{border-color:var(--accent);color:var(--accent);}
+
   [hidden]{display:none !important;}
 </style>
 </head>
@@ -74,24 +174,6 @@
     <h1>PoAIm</h1>
     <p class="tagline">AI-generated tiny poems for every feeling and moment.</p>
   </header>
-
-  <details class="settings-card">
-    <summary>⚙ API Settings (required)</summary>
-    <label style="margin-top:12px;">OpenRouter API Key</label>
-    <input type="password" id="apiKeyInput" placeholder="sk-or-v1-2e.." />
-    <p class="hint">
-      Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>
-      (no credit card required). This app uses the free <code>openai/gpt-oss-120b:free</code> model —
-      $0 per call, but limited to roughly 20 requests/min and 50/day (1,000/day if you ever add
-      $10 credit to your account). Free endpoints can occasionally be unavailable or rate-limited
-      by the underlying provider — if you see a "No endpoints found" or 429 error, check
-      <a href="https://openrouter.ai/models?max_price=0" target="_blank">openrouter.ai/models</a>
-      for a currently active free model and swap the MODEL constant in the code.
-      Key is stored only in your browser's localStorage.
-      ⚠ Client-side keys are visible to anyone inspecting network traffic — fine for personal
-      testing, not for public deployment.
-    </p>
-  </details>
 
   <section class="form-card">
     <label>What is on your mind? <span class="req">*</span></label>
@@ -125,7 +207,6 @@
     </select>
 
     <p id="errorMsg" class="error-msg" hidden></p>
-    <p id="statusMsg" class="status-msg" hidden></p>
     <button id="generateBtn" class="primary-btn">Create my PoAIm ✦</button>
   </section>
 
@@ -139,18 +220,34 @@
         <button id="regenBtn">↻ Regenerate</button>
         <button id="copyBtn">⧉ Copy poem</button>
       </div>
-      <p class="poem-source" id="poemSource"></p>
     </div>
   </section>
 </div>
 
 <script>
-/* ================= CONFIG ================= */
-const MODEL = "openai/gpt-oss-120b:free"; // free model via OpenRouter — swap here if unavailable
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-const VALID_ICONS = ["door","chair","hands","letter","window","seed","bird","moon","flower","wave","matchstick"];
+/* ---------- utils ---------- */
+const randomFrom = arr => arr[Math.floor(Math.random()*arr.length)];
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
 
-/* ================= dedication phrases (kept local, not AI-generated) ================= */
+/* ---------- feeling adjective pools ---------- */
+const feelingAdjectives = {
+  tender: ['soft','gentle','hushed','tender','quiet'],
+  hopeful: ['bright','rising','open','hopeful','unfolding'],
+  wistful: ['faded','quiet','distant','wistful','fading'],
+  joyful: ['bright','dancing','warm','golden','joyful'],
+  fierce: ['sharp','burning','unbending','fierce','wild'],
+  quiet: ['still','hushed','low','silent','quiet'],
+  mysterious: ['veiled','unknown','dim','hidden','mysterious']
+};
+
+/* ---------- recipient dedication phrases ---------- */
 const recipientPhrases = {
   me: ["for me, and only me","for the one still becoming","for myself, quietly held"],
   loved: ["for you, always","for the one I love","for your steady hands"],
@@ -158,154 +255,338 @@ const recipientPhrases = {
   friend: ["for a friend, old and true","for you, my friend","for the ones who stay"],
   anyone: ["for anyone who needs it today","for whoever finds this","for you, whoever you are"]
 };
-const randomFrom = arr => arr[Math.floor(Math.random()*arr.length)];
 
-/* ================= icon SVGs ================= */
-const CREAM = '#fbf5e8', INK = '#2b2523';
-const icons = {
-  door:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="14" width="52" height="96"/><g transform="rotate(-18 18 14)"><rect x="18" y="14" width="52" height="96"/><circle cx="58" cy="64" r="3" fill="${INK}"/></g></svg>`,
-  chair:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="38" y1="55" x2="82" y2="55"/><line x1="38" y1="55" x2="38" y2="24"/><line x1="38" y1="24" x2="70" y2="24"/><line x1="38" y1="55" x2="33" y2="98"/><line x1="82" y1="55" x2="87" y2="98"/></svg>`,
-  hands:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 68 Q60 100 102 68"/><path d="M28 68 Q60 52 92 68"/><circle cx="60" cy="42" r="4" fill="${INK}" stroke="none"/></svg>`,
-  letter:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="34" width="88" height="58"/><path d="M16 34 L60 72 L104 34"/></svg>`,
-  window:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="76" height="84"/><line x1="60" y1="18" x2="60" y2="102"/><line x1="22" y1="60" x2="98" y2="60"/></svg>`,
-  seed:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="60" cy="82" rx="10" ry="16" transform="rotate(20 60 82)"/><path d="M60 66 Q54 42 66 26"/><path d="M66 26 Q78 20 84 32"/></svg>`,
-  bird:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 66 Q40 34 60 58 Q80 34 106 66"/></svg>`,
-  moon:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3"><circle cx="60" cy="60" r="34"/><circle cx="76" cy="48" r="30" fill="${CREAM}" stroke="none"/></svg>`,
-  flower:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="50" r="8"/><circle cx="44" cy="38" r="10"/><circle cx="76" cy="38" r="10"/><circle cx="44" cy="62" r="10"/><circle cx="76" cy="62" r="10"/><line x1="60" y1="58" x2="60" y2="100"/></svg>`,
-  wave:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 50 Q30 30 50 50 T90 50 T110 50"/><path d="M10 70 Q30 50 50 70 T90 70 T110 70"/></svg>`,
-  matchstick:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="60" y1="30" x2="60" y2="100"/><path d="M50 30 Q60 10 70 30 Q65 22 60 30 Q55 22 50 30 Z" fill="${INK}"/></svg>`
+/* ---------- category content ---------- */
+const categories = {
+  career_change: {
+    icon:'door',
+    defaultFeeling:'hopeful',
+    titles:["Threshold","The Open Door","Morning Light","A Door Ajar","The Long Hallway"],
+    opening:[
+  adj => "The old room grows " + adj + " and small,",
+  adj => "There is a door left " + adj + " open,",
+  adj => "Morning leans, " + adj + ", against the frame,"
+],
+    middle:[
+      ()=>`and the hallway hums with maybe.`,
+      ()=>`My hand forgets the shape of the old key.`,
+      ()=>`Somewhere a path unlearns its dust.`,
+      ()=>`The horizon tilts one shade brighter.`,
+      ()=>`Light pools where the hinge used to creak.`,
+      ()=>`The map redraws itself while I sleep.`
+    ],
+    closing:[
+      ()=>`and I step through, unafraid.`,
+      ()=>`and the door does not close behind me.`,
+      ()=>`and a new floor learns my footsteps.`
+    ]
+  },
+  grief_missing: {
+    icon:'chair',
+    defaultFeeling:'wistful',
+    titles:["The Empty Chair","What Remains","Still Here","A Quiet Room","The Space You Left"],
+    opening:[
+      adj=>`The kitchen keeps a $;{adj} chair,`,
+      adj=>`Your name sits $;{adj} on my tongue,`,
+      adj=>`The house remembers you, $;{adj},`
+    ],
+    middle:[
+      ()=>`in the smell of bread and cardamom.`,
+      ()=>`Dust settles where your hands once were.`,
+      ()=>`I set two cups down out of habit.`,
+      ()=>`The garden still grows the flowers you chose.`,
+      ()=>`Your voice hides in the hush after supper.`,
+      ()=>`Photographs learn to breathe on their own.`
+    ],
+    closing:[
+      ()=>`and grief, it turns out, is love with nowhere to go.`,
+      ()=>`and I keep loving you in the present tense.`,
+      ()=>`and the light still finds your favorite chair.`
+    ]
+  },
+  love_falling: {
+    icon:'hands',
+    defaultFeeling:'tender',
+    titles:["Slow Light","Learning You","The Quiet Arrival","Tide","Falling, Slowly"],
+    opening:[
+      adj=>`Love arrives $;{adj}, like tide,`,
+      adj=>`Your name settles $;{adj} in my chest,`,
+      adj=>`Something $;{adj} is learning my hands,`
+    ],
+    middle:[
+      ()=>`not a wave but a slow warming shore.`,
+      ()=>`I keep finding new rooms in your laugh.`,
+      ()=>`We are learning each other's weather.`,
+      ()=>`Even silence sounds different with you in it.`,
+      ()=>`Your name becomes a small, steady lamp.`,
+      ()=>`Morning keeps arriving early, on purpose.`
+    ],
+    closing:[
+      ()=>`and I am in no hurry to reach the shore.`,
+      ()=>`and I let it, slowly, become everything.`,
+      ()=>`and this, quietly, is how it begins.`
+    ]
+  },
+  friendship_change: {
+    icon:'letter',
+    defaultFeeling:'wistful',
+    titles:["Between Us","Distance, Kept Warm","Two Porch Lights","The Letters We Don't Send","Still Ours"],
+    opening:[
+      adj=>`The years grow $;{adj} between us,`,
+      adj=>`Our friendship learns a $;{adj} shape,`,
+      adj=>`Something $;{adj} shifts, but stays,`
+    ],
+    middle:[
+      ()=>`like a bridge that no longer needs crossing daily.`,
+      ()=>`We text in fragments now, not letters.`,
+      ()=>`The porch light still means the same thing.`,
+      ()=>`Distance doesn't undo what we built.`,
+      ()=>`We are two rivers that still remember one source.`,
+      ()=>`New people fill the seats beside us.`
+    ],
+    closing:[
+      ()=>`and some things don't need daily proof to be true.`,
+      ()=>`and I still leave a light on for you.`,
+      ()=>`and this, too, is a kind of staying.`
+    ]
+  },
+  fear_anxiety: {
+    icon:'window',
+    defaultFeeling:'quiet',
+    titles:["The Closed Window","What the Storm Knows","Held Breath","Small Weather","Before the Calm"],
+    opening:[
+      adj=>`The window stays $;{adj} shut,`,
+      adj=>`My chest holds a $;{adj} storm,`,
+      adj=>`Something $;{adj} gathers at the edges,`
+    ],
+    middle:[
+      ()=>`and still the light finds a way in.`,
+      ()=>`I count my breath like small stones.`,
+      ()=>`The thunder is only weather, passing.`,
+      ()=>`My hands learn to hold their own shaking.`,
+      ()=>`Even the dark has a shape I can name.`,
+      ()=>`Fear, too, eventually runs out of rain.`
+    ],
+    closing:[
+      ()=>`and I open the window anyway.`,
+      ()=>`and I breathe until the room believes me.`,
+      ()=>`and the storm, quietly, moves on.`
+    ]
+  },
+  hope_newbeginning: {
+    icon:'seed',
+    defaultFeeling:'hopeful',
+    titles:["The First Green","A Fresh Start","Seedlight","What Grows Next","Beginning, Again"],
+    opening:[
+      adj=>`Something $;{adj} is starting again,`,
+      adj=>`A seed keeps a $;{adj} promise,`,
+      adj=>`The morning arrives $;{adj} and new,`
+    ],
+    middle:[
+      ()=>`small, and unsure, and green anyway.`,
+      ()=>`Hope doesn't need proof, just soil.`,
+      ()=>`I water what I cannot yet see.`,
+      ()=>`The old ground remembers how to begin.`,
+      ()=>`Even doubt gets a little sun today.`,
+      ()=>`Nothing blooms on schedule, and that's alright.`
+    ],
+    closing:[
+      ()=>`and I plant this, trusting the light.`,
+      ()=>`and something in me starts again, quietly.`,
+      ()=>`and I let it grow at its own pace.`
+    ]
+  },
+  joy_celebration: {
+    icon:'bird',
+    defaultFeeling:'joyful',
+    titles:["Wingspan","A Bright Noise","Small Celebrations","Lift","The Good Kind of Loud"],
+    opening:[
+      adj=>`Joy arrives $;{adj} and sudden,`,
+      adj=>`Something $;{adj} takes flight in my chest,`,
+      adj=>`The day breaks open, $;{adj},`
+    ],
+    middle:[
+      ()=>`like a bird that forgot it could sing.`,
+      ()=>`We laugh until the kitchen glows.`,
+      ()=>`Light spills easy over everything.`,
+      ()=>`Even the ordinary hums today.`,
+      ()=>`I keep catching myself smiling for no reason.`,
+      ()=>`The whole sky seems to be clapping.`
+    ],
+    closing:[
+      ()=>`and I let the good noise stay.`,
+      ()=>`and this, simply, is enough.`,
+      ()=>`and I let myself have this.`
+    ]
+  },
+  mystery_unknown: {
+    icon:'moon',
+    defaultFeeling:'mysterious',
+    titles:["What the Fog Knows","The Unnamed Hour","Half-Light","Somewhere, Unwritten","The Question Room"],
+    opening:[
+      adj=>`The future stays $;{adj} and unnamed,`,
+      adj=>`Something $;{adj} waits behind the fog,`,
+      adj=>`The moon keeps its $;{adj} secrets,`
+    ],
+    middle:[
+      ()=>`and I walk toward it anyway.`,
+      ()=>`Not knowing has its own kind of quiet.`,
+      ()=>`The dark isn't empty, just unfinished.`,
+      ()=>`I keep my questions folded, close.`,
+      ()=>`Some doors open only after you knock.`,
+      ()=>`Uncertainty, too, is a kind of beginning.`
+    ],
+    closing:[
+      ()=>`and I let the not-knowing be enough for now.`,
+      ()=>`and I walk anyway, half-lit, willing.`,
+      ()=>`and the fog, eventually, learns my name.`
+    ]
+  },
+  reflection: {
+    icon:'moon',
+    defaultFeeling:'quiet',
+    titles:["Small Weather","A Quiet Hour","What Stays","Still, Here","The In-Between"],
+    opening:[
+      adj=>`Something $;{adj} moves through me,`,
+      adj=>`The hour turns $;{adj} and slow,`,
+      adj=>`A quiet, $;{adj}, settles in,`
+    ],
+    middle:[
+      ()=>`unnamed, but not unwelcome.`,
+      ()=>`I sit with it like an old friend.`,
+      ()=>`The room holds its breath with me.`,
+      ()=>`Even this feeling deserves a little light.`,
+      ()=>`Some days ask nothing but to be felt.`,
+      ()=>`I let it move through, unhurried.`
+    ],
+    closing:[
+      ()=>`and I let it be exactly what it is.`,
+      ()=>`and that, for now, is enough.`,
+      ()=>`and I stay a little longer, still.`
+    ]
+  }
 };
 
-/* ================= LocalStorage for API key ================= */
-const apiKeyInput = document.getElementById('apiKeyInput');
-apiKeyInput.value = localStorage.getItem('poaim_api_key') || '';
-apiKeyInput.addEventListener('input', ()=>{
-  localStorage.setItem('poaim_api_key', apiKeyInput.value.trim());
-});
+/* ---------- theme keyword detection ---------- */
+const keywordMap = {
+  career_change: ['career','job','profession','work','quit','resign','promotion'],
+  grief_missing: ['grandmother','grandfather','mother','father','miss','missing','loss','lost','death','died','passed away','grief','grieving'],
+  love_falling: ['love','falling in love','crush','romance','partner','boyfriend','girlfriend','dating','falling for'],
+  friendship_change: ['friend','friendship'],
+  fear_anxiety: ['afraid','fear','anxious','anxiety','scared','worry','worried','nervous'],
+  hope_newbeginning: ['new beginning','starting over','fresh start','new chapter','moving on','hope'],
+  joy_celebration: ['joy','happy','celebrat','excited','wedding','birth','baby','graduat'],
+  mystery_unknown: ['unknown','mystery','uncertain','future','not sure','unsure']
+};
 
-/* ================= prompt builder ================= */
-function buildMessages(theme, feeling, recipient){
-  const themeLine = theme.toLowerCase() === 'you choose'
-    ? "The user has no specific theme in mind — invent an original, emotionally resonant theme yourself."
-    : `Theme (emotional context, NOT literal words to use): "${theme}"`;
-
-  const feelingLine = !feeling
-    ? "No specific feeling was requested — choose a tone that best fits the theme."
-    : feeling === 'you-choose'
-      ? "The user wants you to choose the emotional tone yourself."
-      : `Desired feeling/tone: ${feeling}`;
-
-  const system = `You are the poem-generation engine for PoAIm, an app that creates tiny original poems.
-
-STRICT RULES:
-- Treat the theme as emotional context only. NEVER use the literal words from the theme in the poem. Translate it into imagery, metaphor, and emotional meaning instead.
-- The poem must be 4 to 10 lines, emotionally specific, concise, coherent, and complete.
-- Avoid generic or cliché language ("time heals", "every cloud", etc).
-- Vary line length/structure naturally based on the emotional complexity of the theme.
-- Choose ONE small central image (e.g. a door, window, bird, wave, flower, moon, matchstick, hands, chair, letter, seed) that the poem revolves around.
-- Provide an optional evocative title (or null if the poem is better untitled).
-- Output ONLY valid JSON, no markdown fences, no commentary, in this exact shape:
-{"title": "string or null", "lines": ["line1","line2", "..."], "icon": "one of: ${VALID_ICONS.join(', ')}"}`;
-
-  const user = `${themeLine}\n${feelingLine}\n\nGenerate one original PoAIm now.`;
-
-  return [
-    {role:'system', content: system},
-    {role:'user', content: user}
-  ];
+function detectCategory(text){
+  const t = text.toLowerCase();
+  for(const key in keywordMap){
+    if(keywordMap[key].some(k=>t.includes(k))) return key;
+  }
+  return 'reflection';
 }
 
-/* ================= JSON extraction (in case model wraps in fences) ================= */
-function extractJSON(text){
-  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  const raw = fenced ? fenced[1] : text;
-  const start = raw.indexOf('{');
-  const end = raw.lastIndexOf('}');
-  if(start === -1 || end === -1) throw new Error("No JSON object found in response");
-  return JSON.parse(raw.slice(start, end+1));
+/* ---------- "You choose" theme bank ---------- */
+const youChooseThemes = [
+  {cat:'career_change'},{cat:'grief_missing'},{cat:'love_falling'},
+  {cat:'friendship_change'},{cat:'fear_anxiety'},{cat:'hope_newbeginning'},
+  {cat:'joy_celebration'},{cat:'mystery_unknown'},{cat:'reflection'}
+];
+
+/* ---------- icon SVGs ---------- */
+const CREAM = '#fbf5e8';
+const INK = '#2b2523';
+const icons = {
+  door:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="14" width="52" height="96"/>
+    <g transform="rotate(-18 18 14)"><rect x="18" y="14" width="52" height="96"/><circle cx="58" cy="64" r="3" fill="${INK}"/></g>
+  </svg>`,
+  chair:`<svg viewBox="0 0 120 120" fill="none" stroke="$;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="38" y1="55" x2="82" y2="55"/>
+    <line x1="38" y1="55" x2="38" y2="24"/>
+    <line x1="38" y1="24" x2="70" y2="24"/>
+    <line x1="38" y1="55" x2="33" y2="98"/>
+    <line x1="82" y1="55" x2="87" y2="98"/>
+  </svg>`,
+  hands:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 68 Q60 100 102 68"/>
+    <path d="M28 68 Q60 52 92 68"/>
+    <circle cx="60" cy="42" r="4" fill="${INK}" stroke="none"/>
+  </svg>`,
+  letter:`<svg viewBox="0 0 120 120" fill="none" stroke="$;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="16" y="34" width="88" height="58"/>
+    <path d="M16 34 L60 72 L104 34"/>
+  </svg>`,
+  window:`<svg viewBox="0 0 120 120" fill="none" stroke="$;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="22" y="18" width="76" height="84"/>
+    <line x1="60" y1="18" x2="60" y2="102"/>
+    <line x1="22" y1="60" x2="98" y2="60"/>
+  </svg>`,
+  seed:`<svg viewBox="0 0 120 120" fill="none" stroke="$;{INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="60" cy="82" rx="10" ry="16" transform="rotate(20 60 82)"/>
+    <path d="M60 66 Q54 42 66 26"/>
+    <path d="M66 26 Q78 20 84 32"/>
+  </svg>`,
+  bird:`<svg viewBox="0 0 120 120" fill="none" stroke="$;{INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 66 Q40 34 60 58 Q80 34 106 66"/>
+  </svg>`,
+  moon:`<svg viewBox="0 0 120 120" fill="none" stroke="${INK}" stroke-width="3">
+    <circle cx="60" cy="60" r="34"/>
+    <circle cx="76" cy="48" r="30" fill="${CREAM}" stroke="none"/>
+  </svg>`
+};
+
+/* ---------- poem generation ---------- */
+function generatePoem(themeInput, feelingInput, recipientInput){
+  let category;
+  if(themeInput.toLowerCase() === 'you choose'){
+    category = randomFrom(youChooseThemes).cat;
+  } else {
+    category = detectCategory(themeInput);
+  }
+  const cat = categories[category];
+
+  let feelingKey = feelingInput;
+  if(!feelingKey) feelingKey = cat.defaultFeeling;
+  if(feelingKey === 'you-choose') feelingKey = randomFrom(Object.keys(feelingAdjectives));
+  const adjPool = feelingAdjectives[feelingKey] || feelingAdjectives.quiet;
+
+  let recipientKey = null;
+  if(recipientInput){
+    recipientKey = recipientInput === 'you-choose'
+      ? randomFrom(Object.keys(recipientPhrases))
+      : recipientInput;
+  }
+
+  let middleCount = 2 + Math.floor(Math.random()*3);
+  if(themeInput.length > 40) middleCount++;
+  if(themeInput.length > 90) middleCount++;
+  middleCount = Math.min(middleCount, 6);
+
+  const opening = randomFrom(cat.opening)(randomFrom(adjPool));
+  const middles = shuffle(cat.middle).slice(0, middleCount).map(fn=>fn());
+  const closingLine = randomFrom(cat.closing)();
+  const lines = [opening, ...middles, closingLine];
+
+  const title = Math.random() < 0.7 ? randomFrom(cat.titles) : null;
+  const dedication = recipientKey ? '— ' + randomFrom(recipientPhrases[recipientKey]) : null;
+
+  return { title, lines, dedication, icon: cat.icon };
 }
 
-/* ================= API call ================= */
-async function generatePoemAI(theme, feeling, recipient) {
-  // Read directly from the visible field
-  const apiKey = apiKeyInput.value.trim();
-
-  if (!apiKey) {
-    throw new Error("MISSING_KEY");
-  }
-
-  if (!apiKey.startsWith("sk-or-")) {
-    throw new Error("INVALID_KEY_FORMAT");
-  }
-
-  // Keep localStorage synchronized
-  localStorage.setItem("poaim_api_key", apiKey);
-
-  const response = await fetch(
-    "https://openrouter.ai/api/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Concatenation avoids the earlier ${...} escaping problem
-        "Authorization": "Bearer " + apiKey
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: buildMessages(theme, feeling, recipient),
-        temperature: 0.95,
-        max_tokens: 350
-      })
-    }
-  );
-
-  const responseText = await response.text();
-
-  if (!response.ok) {
-    throw new Error(
-      "API_ERROR: " + response.status + " " + responseText
-    );
-  }
-
-  const data = JSON.parse(responseText);
-  const content = data.choices?.[0]?.message?.content;
-
-  if (!content) {
-    throw new Error("EMPTY_RESPONSE");
-  }
-
-  const parsed = extractJSON(content);
-
-  if (
-    !Array.isArray(parsed.lines) ||
-    parsed.lines.length < 4 ||
-    parsed.lines.length > 10
-  ) {
-    throw new Error("INVALID_SHAPE");
-  }
-
-  if (!VALID_ICONS.includes(parsed.icon)) {
-    parsed.icon = randomFrom(VALID_ICONS);
-  }
-
-  return parsed;
-}
-
-
-/* ================= UI wiring ================= */
+/* ---------- UI wiring ---------- */
 const themeInput = document.getElementById('themeInput');
 const themeChooseBtn = document.getElementById('themeChooseBtn');
 const feelingSelect = document.getElementById('feelingSelect');
 const recipientSelect = document.getElementById('recipientSelect');
 const errorMsg = document.getElementById('errorMsg');
-const statusMsg = document.getElementById('statusMsg');
 const generateBtn = document.getElementById('generateBtn');
 const poemCardWrap = document.getElementById('poemCardWrap');
 const poemIcon = document.getElementById('poemIcon');
 const poemTitle = document.getElementById('poemTitle');
 const poemBody = document.getElementById('poemBody');
 const poemDedication = document.getElementById('poemDedication');
-const poemSource = document.getElementById('poemSource');
 const regenBtn = document.getElementById('regenBtn');
 const copyBtn = document.getElementById('copyBtn');
 
@@ -324,23 +605,10 @@ themeInput.addEventListener('input', ()=>{
 
 let lastInputs = null;
 
-function showError(msg){
-  errorMsg.textContent = msg;
-  errorMsg.hidden = false;
-  statusMsg.hidden = true;
-}
-function showStatus(msg){
-  statusMsg.textContent = msg;
-  statusMsg.hidden = false;
-  errorMsg.hidden = true;
-}
-function clearMessages(){
-  errorMsg.hidden = true;
-  statusMsg.hidden = true;
-}
+function renderPoem(themeVal, feelingVal, recipientVal){
+  const result = generatePoem(themeVal, feelingVal, recipientVal);
 
-function renderPoem(result, recipientKey, sourceLabel){
-  poemIcon.innerHTML = icons[result.icon] || icons.moon;
+  poemIcon.innerHTML = icons[result.icon];
 
   if(result.title){
     poemTitle.textContent = result.title;
@@ -351,64 +619,33 @@ function renderPoem(result, recipientKey, sourceLabel){
 
   poemBody.innerHTML = result.lines.map(l=>`<p class="line">${l}</p>`).join('');
 
-  if(recipientKey){
-    poemDedication.textContent = '— ' + randomFrom(recipientPhrases[recipientKey]);
+  if(result.dedication){
+    poemDedication.textContent = result.dedication;
     poemDedication.hidden = false;
   } else {
     poemDedication.hidden = true;
   }
 
-  poemSource.textContent = sourceLabel;
   poemCardWrap.hidden = false;
   poemCardWrap.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-async function runGeneration(){
+generateBtn.addEventListener('click', ()=>{
   const themeVal = themeChooseActive ? 'you choose' : themeInput.value.trim();
   if(!themeVal){
-    showError('Please tell us what\'s on your mind, or tap "You choose."');
+    errorMsg.textContent = 'Please tell us what\'s on your mind, or tap "You choose."';
+    errorMsg.hidden = false;
     return;
   }
-  clearMessages();
+  errorMsg.hidden = true;
+  lastInputs = { themeVal, feelingVal: feelingSelect.value, recipientVal: recipientSelect.value };
+  renderPoem(themeVal, feelingSelect.value, recipientSelect.value);
+});
 
-  const feelingVal = feelingSelect.value;
-  const recipientVal = recipientSelect.value;
-  let recipientKey = null;
-  if(recipientVal){
-    recipientKey = recipientVal === 'you-choose'
-      ? randomFrom(Object.keys(recipientPhrases))
-      : recipientVal;
-  }
-
-  lastInputs = { themeVal, feelingVal, recipientVal, recipientKey };
-
-  generateBtn.disabled = true;
-  regenBtn.disabled = true;
-  showStatus('Writing your PoAIm…');
-
-  try{
-    const result = await generatePoemAI(themeVal, feelingVal, recipientVal);
-    clearMessages();
-    renderPoem(result, recipientKey, `Generated by ${MODEL} via OpenRouter`);
-  } catch(err){
-    console.error(err);
-    if(err.message === 'MISSING_KEY'){
-      showError('Please enter your OpenRouter API key in ⚙ API Settings above.');
-    } else if(err.message.includes('429')){
-      showError('Rate limit hit (free tier: ~20/min, 50/day). Wait a bit and try again.');
-    } else if(err.message.includes('404') || err.message.toLowerCase().includes('no endpoints')){
-      showError('This free model is currently unavailable. Check openrouter.ai/models?max_price=0 for an active free model and update MODEL in the code.');
-    } else {
-      showError('Generation failed (' + err.message + '). Check your API key and try again.');
-    }
-  } finally {
-    generateBtn.disabled = false;
-    regenBtn.disabled = false;
-  }
-}
-
-generateBtn.addEventListener('click', runGeneration);
-regenBtn.addEventListener('click', runGeneration);
+regenBtn.addEventListener('click', ()=>{
+  if(!lastInputs) return;
+  renderPoem(lastInputs.themeVal, lastInputs.feelingVal, lastInputs.recipientVal);
+});
 
 copyBtn.addEventListener('click', ()=>{
   const titleText = !poemTitle.hidden ? poemTitle.textContent.toUpperCase() + '\n\n' : '';
